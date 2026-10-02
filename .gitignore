@@ -1,0 +1,20 @@
+# секреты и локальные данные
+.env
+*.db
+*.sqlite3
+
+# окружения и кэш
+.venv/
+venv/
+__pycache__/
+*.pyc
+.pytest_cache/
+
+# результат сборки сайта
+dist/
+
+# система и редакторы
+.DS_Store
+Thumbs.db
+.idea/
+.vscode/

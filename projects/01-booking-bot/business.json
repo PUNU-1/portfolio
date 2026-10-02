@@ -1,0 +1,19 @@
+{
+  "name": "Борода (демо)",
+  "address": "Демо-адрес: ул. Примерная, 1",
+  "phone": "+7 000 000-00-00",
+  "timezone": "Europe/Moscow",
+  "work_start": "10:00",
+  "work_end": "20:00",
+  "slot_minutes": 30,
+  "days_ahead": 7,
+  "days_off": [6],
+  "max_active_bookings_per_user": 3,
+  "demo_notice": "Это демо-проект из портфолио: барбершоп вымышленный, записи ненастоящие.",
+  "services": [
+    {"id": "haircut", "name": "Мужская стрижка", "price": 1500, "duration_min": 60},
+    {"id": "beard", "name": "Моделирование бороды", "price": 1000, "duration_min": 30},
+    {"id": "combo", "name": "Стрижка + борода", "price": 2300, "duration_min": 90},
+    {"id": "kids", "name": "Детская стрижка", "price": 1000, "duration_min": 30}
+  ]
+}

@@ -1,0 +1,5 @@
+{
+  "buildCommand": "python3 scripts/build_site.py",
+  "outputDirectory": "dist",
+  "installCommand": ""
+}

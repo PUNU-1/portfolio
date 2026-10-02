@@ -1,0 +1,9 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 300" role="img" aria-label="Набор стикеров">
+  <rect width="400" height="300" fill="#e8e6fb"/>
+  <rect x="70" y="60" width="110" height="110" rx="24" fill="#5b50d6" transform="rotate(-8 125 115)"/>
+  <circle cx="270" cy="105" r="58" fill="#f2a900"/>
+  <path d="M120 250 L170 170 L220 250 Z" fill="#e5484d" transform="rotate(6 170 210)"/>
+  <rect x="250" y="190" width="90" height="60" rx="30" fill="#2bb673" transform="rotate(10 295 220)"/>
+  <circle cx="270" cy="105" r="14" fill="#fff6d6"/>
+  <circle cx="125" cy="115" r="12" fill="#c9c4ff"/>
+</svg>

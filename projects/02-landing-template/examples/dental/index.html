@@ -1,0 +1,179 @@
+<!doctype html>
+<html lang="ru">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  <!--
+    SEO-ТЕГИ. Страница заполняет их из site.config.js сама, и поисковики (Google, Яндекс) это видят.
+    Но превью ссылки в мессенджерах и соцсетях берётся из этого файла как есть, без выполнения JS.
+    Поэтому при передаче сайта клиенту продублируйте здесь title, description и og:* (строки ниже).
+  -->
+  <title>Улыбка (демо): стоматология, запись на приём онлайн</title>
+  <meta name="description" content="Лечение, гигиена и отбеливание зубов. Запись онлайн, приём без боли и очередей. Демо-сайт из портфолио.">
+  <meta name="robots" content="index, follow">
+  <meta name="theme-color" content="#0e7490">
+  <meta property="og:type" content="website">
+  <meta property="og:locale" content="ru_RU">
+  <meta property="og:title" content="Улыбка (демо): стоматология, запись на приём онлайн">
+  <meta property="og:description" content="Лечение, гигиена и отбеливание зубов. Запись онлайн. Демо-сайт из портфолио.">
+
+  <link rel="icon" href="assets/favicon.svg" type="image/svg+xml">
+  <link rel="stylesheet" href="style.css">
+
+  <!-- Настройки сайта. Править нужно только этот файл. -->
+  <script src="site.config.js"></script>
+  <!-- Тема и цвета применяются до отрисовки страницы, чтобы не было «мигания» -->
+  <script>
+    (function () {
+      var cfg = (window.SITE_CONFIG || {}).theme || {};
+      var root = document.documentElement;
+      var mode = null;
+      try { mode = localStorage.getItem("theme"); } catch (e) {}
+      if (mode !== "light" && mode !== "dark") mode = cfg.defaultMode || "auto";
+      if (mode === "auto") mode = window.matchMedia("(prefers-color-scheme: dark)").matches ? "dark" : "light";
+      var forced = /[?&]theme=(light|dark)/.exec(location.search); // ?theme=light или ?theme=dark в адресе: для превью
+      if (forced) mode = forced[1];
+      root.setAttribute("data-theme", mode);
+
+      // Цвет текста на кнопках с акцентным фоном: чёрный или белый — смотря что контрастнее
+      function onColor(hex) {
+        var m = /^#?([0-9a-f]{2})([0-9a-f]{2})([0-9a-f]{2})$/i.exec(hex || "");
+        if (!m) return "#fff";
+        var c = [m[1], m[2], m[3]].map(function (v) {
+          v = parseInt(v, 16) / 255;
+          return v <= 0.03928 ? v / 12.92 : Math.pow((v + 0.055) / 1.055, 2.4);
+        });
+        var luminance = 0.2126 * c[0] + 0.7152 * c[1] + 0.0722 * c[2];
+        return luminance > 0.4 ? "#111" : "#fff";
+      }
+      if (cfg.accent) {
+        root.style.setProperty("--accent-light", cfg.accent);
+        root.style.setProperty("--on-accent-light", onColor(cfg.accent));
+      }
+      if (cfg.accentDark || cfg.accent) {
+        var dark = cfg.accentDark || cfg.accent;
+        root.style.setProperty("--accent-dark", dark);
+        root.style.setProperty("--on-accent-dark", onColor(dark));
+      }
+    })();
+  </script>
+  <script src="script.js" defer></script>
+</head>
+<body>
+  <a class="skip-link" href="#main">К содержимому</a>
+
+  <div id="demo-notice" class="demo-notice" hidden></div>
+
+  <header class="site-header">
+    <div class="container header-inner">
+      <a class="brand" href="#top" id="brand" aria-label="На главную"></a>
+
+      <nav id="nav" class="nav" aria-label="Разделы сайта"></nav>
+
+      <div class="header-actions">
+        <a id="header-phone" class="btn btn-ghost header-phone" href="#" hidden></a>
+        <button id="theme-toggle" class="icon-btn" type="button" aria-label="Переключить тему" aria-pressed="false">
+          <svg class="icon-moon" viewBox="0 0 24 24" width="20" height="20" aria-hidden="true"><path fill="currentColor" d="M21 14.5A9 9 0 0 1 9.5 3a9 9 0 1 0 11.5 11.5z"/></svg>
+          <svg class="icon-sun" viewBox="0 0 24 24" width="20" height="20" aria-hidden="true"><circle cx="12" cy="12" r="4.5" fill="currentColor"/><g stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M12 2v2.5M12 19.5V22M2 12h2.5M19.5 12H22M4.9 4.9l1.8 1.8M17.3 17.3l1.8 1.8M4.9 19.1l1.8-1.8M17.3 6.7l1.8-1.8"/></g></svg>
+        </button>
+        <button id="menu-toggle" class="icon-btn menu-toggle" type="button" aria-label="Открыть меню" aria-expanded="false" aria-controls="nav">
+          <svg viewBox="0 0 24 24" width="22" height="22" aria-hidden="true"><path d="M4 7h16M4 12h16M4 17h16" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <main id="main">
+    <section id="top" class="hero">
+      <div class="container hero-inner">
+        <div class="hero-text">
+          <h1 id="hero-title"></h1>
+          <p id="hero-subtitle" class="lead"></p>
+          <div class="hero-buttons">
+            <a id="hero-primary" class="btn btn-primary" href="#contacts"></a>
+            <a id="hero-secondary" class="btn btn-ghost" href="#" hidden></a>
+          </div>
+          <ul id="hero-facts" class="facts"></ul>
+        </div>
+        <div class="hero-art" aria-hidden="true"><div class="pole"></div></div>
+      </div>
+    </section>
+
+    <section id="services" class="section">
+      <div class="container">
+        <h2 id="services-title"></h2>
+        <div id="services-list" class="cards"></div>
+      </div>
+    </section>
+
+    <section id="prices" class="section section-alt">
+      <div class="container narrow">
+        <h2 id="prices-title"></h2>
+        <table class="price-table">
+          <caption class="visually-hidden">Прайс-лист</caption>
+          <thead class="visually-hidden"><tr><th scope="col">Услуга</th><th scope="col">Цена</th></tr></thead>
+          <tbody id="prices-body"></tbody>
+        </table>
+        <p id="prices-note" class="note"></p>
+      </div>
+    </section>
+
+    <section id="faq" class="section">
+      <div class="container narrow">
+        <h2 id="faq-title"></h2>
+        <div id="faq-list" class="faq"></div>
+      </div>
+    </section>
+
+    <section id="contacts" class="section section-alt">
+      <div class="container">
+        <h2 id="contacts-title"></h2>
+        <div class="contacts-grid">
+          <div id="contacts-info" class="contacts-info"></div>
+
+          <form id="lead-form" class="lead-form" novalidate>
+            <h3 id="form-title"></h3>
+            <p id="form-subtitle" class="note"></p>
+
+            <label>Ваше имя
+              <input name="name" type="text" autocomplete="name" required minlength="2" maxlength="80">
+            </label>
+            <label>Телефон
+              <input name="phone" type="tel" autocomplete="tel" inputmode="tel" required minlength="6" maxlength="30" placeholder="+7 ___ ___-__-__">
+            </label>
+            <label>Услуга
+              <select name="service" id="form-service"></select>
+            </label>
+            <label>Комментарий (необязательно)
+              <textarea name="comment" rows="3" maxlength="500"></textarea>
+            </label>
+
+            <!-- Ловушка для спам-ботов: человек это поле не видит и не заполняет -->
+            <div class="visually-hidden" aria-hidden="true">
+              <label>Не заполняйте это поле <input name="website" type="text" tabindex="-1" autocomplete="off"></label>
+            </div>
+
+            <label class="consent">
+              <input name="consent" type="checkbox" required>
+              <span id="form-consent"></span>
+            </label>
+
+            <p id="form-status" class="form-status" role="status" aria-live="polite"></p>
+            <button id="form-submit" class="btn btn-primary" type="submit"></button>
+          </form>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="site-footer">
+    <div class="container footer-inner">
+      <p id="footer-text"></p>
+      <a id="footer-privacy" href="#" hidden>Политика конфиденциальности</a>
+    </div>
+  </footer>
+
+  <noscript><p class="container note">Чтобы увидеть сайт, включите JavaScript в браузере.</p></noscript>
+</body>
+</html>

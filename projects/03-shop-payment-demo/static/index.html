@@ -1,0 +1,47 @@
+<!doctype html>
+<html lang="ru">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="robots" content="noindex">
+  <title>Демо-магазин: корзина и тестовая оплата</title>
+  <meta name="description" content="Демо-проект: магазин на три тестовых товара с корзиной, оформлением заказа и заменяемым платёжным модулем.">
+  <link rel="stylesheet" href="/style.css">
+</head>
+<body>
+  <div class="demo-banner">ДЕМО-ПРОЕКТ: реальные платежи не проходят, деньги не списываются, товары вымышленные</div>
+
+  <header class="site-header">
+    <h1>Демо-магазин</h1>
+    <p class="muted">Пример интеграции приёма оплаты: корзина, заказ, статусы и webhook с проверкой подписи.</p>
+  </header>
+
+  <main class="shop">
+    <section aria-labelledby="catalog-title">
+      <h2 id="catalog-title">Товары</h2>
+      <div id="products" class="products" aria-live="polite">Загрузка…</div>
+    </section>
+
+    <aside class="cart card" aria-labelledby="cart-title">
+      <h2 id="cart-title">Корзина</h2>
+      <p id="cart-empty" class="muted">Пока пусто. Добавьте что-нибудь из каталога.</p>
+      <ul id="cart-items" class="cart-items"></ul>
+      <p class="cart-total"><span>Итого</span> <strong id="cart-total">0 ₽</strong></p>
+
+      <form id="checkout" class="checkout" hidden>
+        <label>Имя
+          <input name="name" type="text" autocomplete="name" required minlength="2" maxlength="80">
+        </label>
+        <label>Email
+          <input name="email" type="email" autocomplete="email" required maxlength="120">
+        </label>
+        <p id="checkout-error" class="error" role="alert"></p>
+        <button class="btn primary" type="submit">Оформить и перейти к оплате</button>
+        <p class="muted small">Оплата тестовая: вы попадёте на страницу-имитацию банка.</p>
+      </form>
+    </aside>
+  </main>
+
+  <script src="/app.js"></script>
+</body>
+</html>

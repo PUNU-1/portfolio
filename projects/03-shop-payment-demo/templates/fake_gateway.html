@@ -1,0 +1,33 @@
+<!doctype html>
+<html lang="ru">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="robots" content="noindex">
+  <title>Тестовая оплата (демо)</title>
+  <link rel="stylesheet" href="/style.css">
+</head>
+<body>
+  <div class="demo-banner">ДЕМО-ПРОЕКТ: реальные платежи не проходят, деньги не списываются</div>
+  <main class="narrow">
+    <h1>Тестовая оплата</h1>
+    <p class="muted">Это имитация платёжной страницы банка. Здесь нет полей для карты, и вводить реальные данные не нужно.</p>
+
+    <div class="card">
+      <p>Заказ <code>{{ payment.public_id }}</code></p>
+      <p class="big">{{ '{:,.2f}'.format(payment.total_kop / 100).replace(',', ' ').replace('.', ',') }} ₽</p>
+    </div>
+
+    <p>Выберите, чем закончится «оплата». Страница отправит магазину подписанное уведомление (webhook), как это делает настоящий банк.</p>
+
+    <div class="row">
+      <form method="post" action="/fake-gateway/{{ payment.payment_id }}/success">
+        <button class="btn primary" type="submit">Имитировать успешную оплату</button>
+      </form>
+      <form method="post" action="/fake-gateway/{{ payment.payment_id }}/fail">
+        <button class="btn" type="submit">Имитировать отказ банка</button>
+      </form>
+    </div>
+  </main>
+</body>
+</html>

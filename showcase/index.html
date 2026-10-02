@@ -1,0 +1,367 @@
+<!doctype html>
+<html lang="ru">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  <!-- Эти теги подставляются из site.config.js, но превью ссылки в мессенджерах берётся отсюда. Поменяй имя здесь тоже. -->
+  <title>Punufolio: Telegram-боты и лендинги для малого бизнеса</title>
+  <meta name="description" content="Делаю Telegram-ботов, лендинги и приём оплаты для малого бизнеса. Четыре демо-проекта с открытым кодом, понятные условия, цена и срок до начала работы.">
+  <meta name="theme-color" content="#2b3cff">
+  <meta property="og:type" content="website">
+  <meta property="og:locale" content="ru_RU">
+  <meta property="og:title" content="Punufolio: Telegram-боты и лендинги для малого бизнеса">
+  <meta property="og:description" content="Четыре демо-проекта с открытым кодом, понятные условия, цена и срок до начала работы.">
+  <link rel="icon" href="assets/favicon.svg" type="image/svg+xml">
+  <link rel="stylesheet" href="style.css">
+
+  <script src="site.config.js"></script>
+  <!-- Тема применяется до отрисовки, чтобы страница не «мигала» -->
+  <script>
+    (function () {
+      var mode = null;
+      try { mode = localStorage.getItem("theme"); } catch (e) {}
+      if (mode !== "light" && mode !== "dark") {
+        mode = window.matchMedia("(prefers-color-scheme: dark)").matches ? "dark" : "light";
+      }
+      var forced = /[?&]theme=(light|dark)/.exec(location.search); // ?theme=light или ?theme=dark в адресе: для превью
+      if (forced) mode = forced[1];
+      document.documentElement.setAttribute("data-theme", mode);
+    })();
+  </script>
+  <script src="script.js" defer></script>
+</head>
+<body>
+  <a class="skip-link" href="#main">К содержимому</a>
+
+  <div id="setup-notice" class="setup-notice" hidden>
+    Это шаблон: в <code>site.config.js</code> ещё стоят заглушки (имя, Telegram, ссылки на GitHub). Замени их, и эта плашка пропадёт. Список всего, что нужно поменять, лежит в <code>TODO.md</code>.
+  </div>
+
+  <header class="site-header">
+    <div class="wrap header-inner">
+      <a class="wordmark" href="#top"><span data-person-name>Punufolio</span><i aria-hidden="true"></i></a>
+
+      <nav id="nav" class="nav" aria-label="Разделы сайта">
+        <a href="#projects">Проекты</a>
+        <a href="#services">Услуги</a>
+        <a href="#process">Как я работаю</a>
+        <a href="#contact">Контакты</a>
+      </nav>
+
+      <div class="header-actions">
+        <a class="btn btn-small btn-primary header-cta" href="#contact" data-telegram-link>Написать</a>
+        <button id="theme-toggle" class="icon-btn" type="button" aria-label="Переключить тему" aria-pressed="false">
+          <svg class="icon-moon" viewBox="0 0 24 24" width="18" height="18" aria-hidden="true"><path fill="currentColor" d="M21 14.5A9 9 0 0 1 9.5 3a9 9 0 1 0 11.5 11.5z"/></svg>
+          <svg class="icon-sun" viewBox="0 0 24 24" width="18" height="18" aria-hidden="true"><circle cx="12" cy="12" r="4.5" fill="currentColor"/><g stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M12 2v2.5M12 19.5V22M2 12h2.5M19.5 12H22M4.9 4.9l1.8 1.8M17.3 17.3l1.8 1.8M4.9 19.1l1.8-1.8M17.3 6.7l1.8-1.8"/></g></svg>
+        </button>
+        <button id="menu-toggle" class="icon-btn menu-toggle" type="button" aria-label="Открыть меню" aria-expanded="false" aria-controls="nav">
+          <svg viewBox="0 0 24 24" width="20" height="20" aria-hidden="true"><path d="M4 7h16M4 12h16M4 17h16" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <main id="main">
+    <!-- ===== Кто я ===== -->
+    <section id="top" class="hero">
+      <div class="wrap hero-grid">
+        <div>
+          <p class="eyebrow"><span data-person-name>Punufolio</span> · школьник, который пишет код</p>
+          <h1>Делаю <span class="nobr">Telegram-ботов</span> и&nbsp;лендинги для&nbsp;<span class="mark">малого бизнеса</span></h1>
+          <p class="lead">
+            Беру небольшие задачи: принять запись клиентов, ответить на частые вопросы, собрать сайт-визитку
+            или подключить оплату. Объясняю без жаргона, а цену и срок называю до начала работы.
+          </p>
+          <div class="hero-actions">
+            <a class="btn btn-primary" href="#contact" data-telegram-link>Написать в Telegram</a>
+            <a class="btn btn-ghost" href="#projects">Смотреть проекты</a>
+          </div>
+        </div>
+
+        <aside class="about" aria-label="Коротко о себе">
+          <img id="photo" class="photo" alt="" width="160" height="160" hidden>
+          <p>
+            Я школьник. Пока у меня нет клиентских отзывов, и я не буду их придумывать:
+            все проекты ниже сделаны на вымышленных компаниях и честно помечены как демо.
+          </p>
+          <p>
+            Код пишу с помощью ИИ-ассистента, но каждую работу сам запускаю, тестирую и отвечаю за результат.
+            Поэтому первые заказы беру на понятных условиях и показываю результат по ходу работы.
+          </p>
+        </aside>
+      </div>
+    </section>
+
+    <!-- ===== Проекты ===== -->
+    <section id="projects" class="section">
+      <div class="wrap">
+        <header class="section-head">
+          <p class="section-num">01</p>
+          <h2>Проекты</h2>
+          <p class="section-lead">
+            Четыре демо-проекта на вымышленных компаниях. Код открыт, у каждого есть инструкция запуска.
+            Так выглядит моя работа, пока нет первых клиентов.
+          </p>
+        </header>
+
+        <!-- Проект 1 -->
+        <article class="project" id="project-booking">
+          <div class="project-main">
+            <p class="project-num">01 <span class="chip chip-demo">демо-проект</span></p>
+            <h3>Telegram-бот записи клиентов</h3>
+            <dl class="facts">
+              <dt>Задача</dt>
+              <dd>Салон, барбершоп или стоматология принимают записи в личных сообщениях. Администратор отвлекается, время путают, двух клиентов записывают на одно окно.</dd>
+              <dt>Что сделано</dt>
+              <dd>
+                <ul>
+                  <li>Клиент выбирает услугу, дату и свободное время и подтверждает запись.</li>
+                  <li>Занятое время не показывается, двойная запись исключена.</li>
+                  <li>Владелец сразу получает уведомление о каждой записи и отмене.</li>
+                  <li>Клиенту: <code>/my_bookings</code> и <code>/cancel</code>. Администратору: <code>/today</code> со списком записей на день.</li>
+                </ul>
+              </dd>
+              <dt>Технологии</dt>
+              <dd class="tags"><span>Python</span><span>aiogram 3</span><span>SQLite</span><span>автотесты</span></dd>
+            </dl>
+            <p class="links">
+              <a class="btn btn-small btn-ghost" data-project-code="booking" href="#" target="_blank" rel="noopener">Код на GitHub ↗</a>
+              <a class="btn btn-small btn-primary" data-project-demo="booking" href="#" target="_blank" rel="noopener" hidden>Открыть демо ↗</a>
+            </p>
+          </div>
+
+          <figure class="project-visual">
+            <div class="chat" role="img" aria-label="Пример диалога с ботом записи">
+              <p class="msg bot">Выберите услугу:</p>
+              <p class="msg opts"><span>Мужская стрижка · 1 500 ₽</span><span>Борода · 1 000 ₽</span></p>
+              <p class="msg user">Мужская стрижка</p>
+              <p class="msg bot"><b>Вы записаны</b><br>пт, 16 октября, 12:00–13:00</p>
+            </div>
+            <figcaption>Иллюстрация диалога (демо)</figcaption>
+          </figure>
+        </article>
+
+        <!-- Проект 2 -->
+        <article class="project" id="project-landing">
+          <div class="project-main">
+            <p class="project-num">02 <span class="chip chip-demo">демо-проект</span></p>
+            <h3>Лендинг-шаблон для локального бизнеса</h3>
+            <dl class="facts">
+              <dt>Задача</dt>
+              <dd>Мастеру или небольшой компании нужна страница-визитка: что делаем, сколько стоит, как записаться. Без конструктора и без месяца ожидания.</dd>
+              <dt>Что сделано</dt>
+              <dd>
+                <ul>
+                  <li>Адаптивная вёрстка для телефона и компьютера, светлая и тёмная темы.</li>
+                  <li>Блоки: услуги, цены, вопросы и ответы, контакты, форма заявки.</li>
+                  <li>SEO-теги и структурированные данные, быстрая загрузка: около 40 КБ без фреймворков.</li>
+                  <li>Шаблон: цвета, тексты и логотип меняются в одном файле настроек.</li>
+                </ul>
+              </dd>
+              <dt>Технологии</dt>
+              <dd class="tags"><span>HTML</span><span>CSS</span><span>JavaScript</span><span>без фреймворков</span></dd>
+            </dl>
+            <p class="links">
+              <a class="btn btn-small btn-ghost" data-project-code="landing" href="#" target="_blank" rel="noopener">Код на GitHub ↗</a>
+              <a class="btn btn-small btn-primary" data-project-demo="landing" href="#" target="_blank" rel="noopener" hidden>Открыть демо ↗</a>
+            </p>
+          </div>
+
+          <figure class="project-visual">
+            <div class="mini-site" role="img" aria-label="Схема страницы лендинга: шапка, первый экран, карточки услуг, форма">
+              <div class="mini-bar"><i></i><i></i><i></i></div>
+              <div class="mini-hero"><b></b><b></b><u></u></div>
+              <div class="mini-cards"><i></i><i></i><i></i></div>
+              <div class="mini-form"><i></i><i></i><u></u></div>
+            </div>
+            <figcaption>Схема страницы шаблона</figcaption>
+          </figure>
+        </article>
+
+        <!-- Проект 3 -->
+        <article class="project" id="project-shop">
+          <div class="project-main">
+            <p class="project-num">03 <span class="chip chip-demo">демо-проект</span></p>
+            <h3>Магазин с тестовой оплатой</h3>
+            <dl class="facts">
+              <dt>Задача</dt>
+              <dd>Чтобы продавать онлайн, мало кнопки «Оплатить». Нужно точно знать, оплачен ли заказ, и не дать себя обмануть подделкой или неверной суммой.</dd>
+              <dt>Что сделано</dt>
+              <dd>
+                <ul>
+                  <li>Каталог из трёх тестовых товаров, корзина, оформление заказа, статусы «создан», «оплачен», «ошибка».</li>
+                  <li>Платёжный слой-адаптер: сейчас заглушка, реальную систему подключают заменой одного класса. В README описано, как.</li>
+                  <li>Webhook с проверкой подписи, защита от повторов и от неверной суммы.</li>
+                  <li>На каждой странице плашка: демо, реальные платежи не проходят.</li>
+                </ul>
+              </dd>
+              <dt>Технологии</dt>
+              <dd class="tags"><span>Python</span><span>Flask</span><span>SQLite</span><span>JavaScript</span><span>автотесты</span></dd>
+            </dl>
+            <p class="links">
+              <a class="btn btn-small btn-ghost" data-project-code="shop" href="#" target="_blank" rel="noopener">Код на GitHub ↗</a>
+              <a class="btn btn-small btn-primary" data-project-demo="shop" href="#" target="_blank" rel="noopener" hidden>Открыть демо ↗</a>
+            </p>
+          </div>
+
+          <figure class="project-visual">
+            <div class="orders" role="img" aria-label="Пример статусов заказов">
+              <p><span>Заказ №1</span><b class="status s-wait">создан</b></p>
+              <p><span>Заказ №2</span><b class="status s-ok">оплачен</b></p>
+              <p><span>Заказ №3</span><b class="status s-bad">ошибка</b></p>
+              <p class="orders-note">Демо: реальные платежи не проходят</p>
+            </div>
+            <figcaption>Иллюстрация статусов (демо)</figcaption>
+          </figure>
+        </article>
+
+        <!-- Проект 4 -->
+        <article class="project" id="project-assistant">
+          <div class="project-main">
+            <p class="project-num">04 <span class="chip chip-demo">демо-проект</span></p>
+            <h3>ИИ-ассистент в Telegram для бизнеса</h3>
+            <dl class="facts">
+              <dt>Задача</dt>
+              <dd>Клиенты задают одни и те же вопросы: адрес, график, цены, как отменить запись. Ночью и в выходные отвечать некому.</dd>
+              <dt>Что сделано</dt>
+              <dd>
+                <ul>
+                  <li>Отвечает по базе знаний из обычного текстового файла с FAQ. Если ответа там нет, не выдумывает, а отправляет к оператору.</li>
+                  <li>Помнит последние реплики диалога, ограничивает число сообщений на человека в сутки.</li>
+                  <li>Честно говорит, что это ИИ, а не человек.</li>
+                  <li>Модель и ключ меняются в <code>.env</code>: подходит любой OpenAI-совместимый API.</li>
+                </ul>
+              </dd>
+              <dt>Технологии</dt>
+              <dd class="tags"><span>Python</span><span>aiogram 3</span><span>OpenAI-совместимый API</span><span>SQLite</span><span>автотесты</span></dd>
+            </dl>
+            <p class="links">
+              <a class="btn btn-small btn-ghost" data-project-code="assistant" href="#" target="_blank" rel="noopener">Код на GitHub ↗</a>
+              <a class="btn btn-small btn-primary" data-project-demo="assistant" href="#" target="_blank" rel="noopener" hidden>Открыть демо ↗</a>
+            </p>
+          </div>
+
+          <figure class="project-visual">
+            <div class="chat" role="img" aria-label="Пример диалога с ИИ-ассистентом">
+              <p class="msg user">Во сколько вы открываетесь?</p>
+              <p class="msg bot">Мы работаем с 10:00 до 20:00, с понедельника по субботу. Воскресенье выходной.</p>
+              <p class="msg user">А можно с собакой?</p>
+              <p class="msg bot">В базе знаний про это сказано: с животными, к сожалению, нельзя. Если нужны подробности, напишите оператору: /operator</p>
+              <p class="msg hint">Я ИИ-ассистент, не человек, и могу ошибаться.</p>
+            </div>
+            <figcaption>Иллюстрация диалога (демо)</figcaption>
+          </figure>
+        </article>
+      </div>
+    </section>
+
+    <!-- ===== Услуги и цены ===== -->
+    <section id="services" class="section section-alt">
+      <div class="wrap">
+        <header class="section-head">
+          <p class="section-num">02</p>
+          <h2>Услуги и ориентировочные цены</h2>
+          <p id="services-note" class="section-lead"></p>
+        </header>
+        <ul id="services-list" class="service-list"></ul>
+      </div>
+    </section>
+
+    <!-- ===== Как я работаю ===== -->
+    <section id="process" class="section">
+      <div class="wrap">
+        <header class="section-head">
+          <p class="section-num">03</p>
+          <h2>Как я работаю</h2>
+          <p class="section-lead">Пять шагов. Каждый можно обсудить заранее, чтобы не было сюрпризов ни у вас, ни у меня.</p>
+        </header>
+
+        <ol class="steps">
+          <li>
+            <h3>Бриф</h3>
+            <p>Вы рассказываете задачу в Telegram своими словами, я задаю уточняющие вопросы. Результат: страница с описанием, что именно будет сделано и что не входит в работу. Начинаю только после того, как вы с этим согласились.</p>
+          </li>
+          <li>
+            <h3>Срок и цена</h3>
+            <p>После брифа называю фиксированную цену и дату сдачи. Если по ходу работы задача растёт, мы обсуждаем это заранее и не меняем условия молча.</p>
+          </li>
+          <li>
+            <h3>Оплата</h3>
+            <p>Часть суммы перед началом, остальное после приёмки. Пропорции обсуждаем на брифе; для первых заказов я готов подстроиться под вашу схему. Способ оплаты согласуем в переписке.</p>
+          </li>
+          <li>
+            <h3>Правки</h3>
+            <p>Показываю промежуточный результат, не дожидаясь конца, чтобы поймать расхождения раньше. В цену входит два круга правок по согласованному заданию. Новые идеи сверх него считаем отдельно.</p>
+          </li>
+          <li>
+            <h3>Поддержка</h3>
+            <p>Передаю исходный код и инструкцию запуска простым языком. Две недели после сдачи исправляю ошибки бесплатно. Дальше по желанию: доработки и сопровождение за отдельную плату.</p>
+          </li>
+        </ol>
+      </div>
+    </section>
+
+    <!-- ===== Контакты и форма ===== -->
+    <section id="contact" class="section section-alt">
+      <div class="wrap contact-grid">
+        <div>
+          <header class="section-head">
+            <p class="section-num">04</p>
+            <h2>Расскажите о задаче</h2>
+            <p class="section-lead">Достаточно пары предложений: чем занимается бизнес и что хотите получить. Отвечаю в Telegram, обычно в течение дня.</p>
+          </header>
+
+          <ul class="contact-list">
+            <li><span>Telegram</span> <a data-telegram-link data-telegram-text href="#" target="_blank" rel="noopener">@your_telegram</a></li>
+            <li id="contact-email" hidden><span>Email</span> <a href="#"></a></li>
+            <li id="contact-github" hidden><span>GitHub</span> <a href="#" target="_blank" rel="noopener"></a></li>
+          </ul>
+        </div>
+
+        <form id="lead-form" class="lead-form" novalidate>
+          <label>Как к вам обращаться
+            <input name="name" type="text" autocomplete="name" required minlength="2" maxlength="80">
+          </label>
+          <label>Как с вами связаться (Telegram, телефон или email)
+            <input name="contact" type="text" required minlength="3" maxlength="120">
+          </label>
+          <label>Что нужно сделать
+            <textarea name="task" rows="4" required minlength="10" maxlength="1000" placeholder="Например: бот для записи клиентов в студию маникюра"></textarea>
+          </label>
+          <label>Примерный бюджет
+            <select name="budget">
+              <option value="">Пока не знаю</option>
+              <option>до 5 000 ₽</option>
+              <option>5 000–15 000 ₽</option>
+              <option>15 000 ₽ и больше</option>
+            </select>
+          </label>
+
+          <!-- Ловушка для спам-ботов: человек это поле не видит -->
+          <div class="visually-hidden" aria-hidden="true">
+            <label>Не заполняйте <input name="website" type="text" tabindex="-1" autocomplete="off"></label>
+          </div>
+
+          <label class="consent">
+            <input name="consent" type="checkbox" required>
+            <span>Согласен(на) на обработку введённых данных, чтобы со мной связались по задаче</span>
+          </label>
+
+          <p id="form-status" class="form-status" role="status" aria-live="polite"></p>
+          <button class="btn btn-primary" type="submit">Отправить</button>
+        </form>
+      </div>
+    </section>
+  </main>
+
+  <footer class="site-footer">
+    <div class="wrap footer-inner">
+      <p>© <span id="year"></span> <span data-person-name>Punufolio</span>. Сайт на чистом HTML, CSS и JavaScript.</p>
+      <p>Все проекты на сайте демонстрационные: компании и данные в них вымышленные.</p>
+    </div>
+  </footer>
+
+  <noscript><p class="wrap">Чтобы увидеть цены и работающие ссылки, включите JavaScript.</p></noscript>
+</body>
+</html>
